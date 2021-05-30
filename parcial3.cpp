@@ -21,7 +21,7 @@ void Iniciar()
     glMatrixMode(GL_MODELVIEW);
 
     t = 0.1;
-    h = 0.06;
+    h = 0.05;
     i = 0;
     P[1] = alto / 2;
     V[1] = 0;
@@ -33,19 +33,18 @@ void Iniciar_Sistema()
     tiempo_cambio = tiempo_cambio - 1;
     PB = 0;
     cont = 0;
-    for (int i = 0; i <= cantidad_bloques; i++)
+    for (int i = 0; i < cantidad_bloques; i++)
     {
         alturas[i] = rand() % 200 + 100;
-        alturas2[i] = (rand() % 20 + (alturas[i] + 120));
+        alturas2[i] = (alturas[i] + 120);
     }
 }
 void Reset_Sistema()
 {
-    tiempo_cambio = tiempo_cambio - 1;
-    PB = 0;
-    cont = 0;
+
     cont2 = 0;
     P[1] = alto / 2;
+    V[1] = 0;
     V2[0] = 0;
     P2[0] = 0;
     gameOver = false;
@@ -53,13 +52,10 @@ void Reset_Sistema()
     tiempo_cambio = 10;
     salto = 250;
     t = 0.1;
-    for (int i = 0; i <= cantidad_bloques; i++)
-    {
-        alturas[i] = rand() % 200 + 100;
-        alturas2[i] = (rand() % 20 + (alturas[i] + 120));
-    }
+    Iniciar_Sistema();
+
 }
-void drawText(const char *text, int length, int x, int y)
+void drawText(const char* text, int length, int x, int y)
 {
     glRasterPos2i(x, y);
     for (int i = 0; i < length; i++)
@@ -67,7 +63,7 @@ void drawText(const char *text, int length, int x, int y)
         glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, (int)text[i]);
     }
 }
-void drawText1(const char *text, int length, int x, int y)
+void drawText1(const char* text, int length, int x, int y)
 {
     glRasterPos2i(x, y);
     for (int i = 0; i < length; i++)
@@ -161,6 +157,7 @@ void Aumentar_Tiempo()
     i = i + 1;
     t = t + h;
     PB = PB + (P2[0]);
+
 }
 void Calcular_MetodoEuler()
 {
@@ -170,6 +167,7 @@ void Calcular_MetodoEuler()
 
     P2[0] = P2[0] + (h * V2[0]);
     V2[0] = (0.2 / (pow(t, 0.8)));
+
 }
 void textos()
 {
@@ -265,6 +263,7 @@ void OnKey(unsigned char key, int x, int y)
 }
 void OnTimerGL(int id)
 {
+
     if (paused == false)
     {
         Aumentar_Tiempo();
@@ -285,17 +284,15 @@ void OnTimerGL(int id)
             {
                 salto = 250;
             }
-            cout << "entro al condicional" << endl;
             Iniciar_Sistema();
             salto = salto - 25;
             val = true;
-            cout << P2[0] << endl;
         }
     }
     glutPostRedisplay();
     glutTimerFunc(1, OnTimerGL, 1);
 }
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     setlocale(LC_ALL, "");
     glutInit(&argc, argv);
@@ -307,7 +304,7 @@ int main(int argc, char **argv)
     glutDisplayFunc(pintar);
     glutIdleFunc(modelo);
     glutKeyboardFunc(OnKey);
-    glutTimerFunc(10, OnTimerGL, 1);
+    glutTimerFunc(1, OnTimerGL, 1);
     glutMainLoop();
     return 0;
 }
