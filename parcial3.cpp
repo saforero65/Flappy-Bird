@@ -53,9 +53,8 @@ void Reset_Sistema()
     salto = 250;
     t = 0.1;
     Iniciar_Sistema();
-
 }
-void drawText(const char* text, int length, int x, int y)
+void drawText(const char *text, int length, int x, int y)
 {
     glRasterPos2i(x, y);
     for (int i = 0; i < length; i++)
@@ -63,7 +62,7 @@ void drawText(const char* text, int length, int x, int y)
         glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, (int)text[i]);
     }
 }
-void drawText1(const char* text, int length, int x, int y)
+void drawText1(const char *text, int length, int x, int y)
 {
     glRasterPos2i(x, y);
     for (int i = 0; i < length; i++)
@@ -157,7 +156,6 @@ void Aumentar_Tiempo()
     i = i + 1;
     t = t + h;
     PB = PB + (P2[0]);
-
 }
 void Calcular_MetodoEuler()
 {
@@ -167,7 +165,6 @@ void Calcular_MetodoEuler()
 
     P2[0] = P2[0] + (h * V2[0]);
     V2[0] = (0.2 / (pow(t, 0.8)));
-
 }
 void textos()
 {
@@ -292,7 +289,7 @@ void OnTimerGL(int id)
     glutPostRedisplay();
     glutTimerFunc(1, OnTimerGL, 1);
 }
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     setlocale(LC_ALL, "");
     glutInit(&argc, argv);
